@@ -8,7 +8,7 @@
 		"build": "vite build",
 		"lint": "eslint .",
 		"preview": "vite preview",
-		"deploy": "BRANCH=$(git rev-parse --abbrev-ref HEAD) && if [ \"$BRANCH\" != \"main\" ]; then echo '❌ You must be on main to deploy. Currently on:' $BRANCH && exit 1; fi && npm run build && git switch deploy && git rm -rf --quiet . && cp -r ../my-portfolio/dist/* . || echo 'No dist folder found' && git add -A && git commit -m 'Deploy update' || echo 'No changes to commit' && git push -f origin deploy && git switch main || git switch main"
+		"deploy-safe": "BRANCH=$(git rev-parse --abbrev-ref HEAD); if [ \"$BRANCH\" != \"main\" ]; then echo \"❌ You must be on 'main' to deploy. Currently on: $BRANCH\"; exit 1; fi; npm run build && git subtree push --prefix dist origin deploy"
 	},
 	"dependencies": {
 		"aos": "^2.3.4",
