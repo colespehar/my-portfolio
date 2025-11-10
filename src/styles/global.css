@@ -782,3 +782,42 @@
   background-color: #ebecf0 !important;
   color: #1a1a1a !important;
 }
+
+/* ==============================
+   FINAL FIX — Remove Mobile Overflow & Edge Gaps
+============================== */
+html,
+body {
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+#hero {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+#hero .container,
+#hero .row,
+#hero .d-flex {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Prevent buttons or flex children from exceeding screen width */
+#hero .btn,
+#hero .btn svg {
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+
+/* Clean up any leftover scroll caused by animations or AOS */
+[data-aos] {
+  overflow-x: hidden !important;
+}
