@@ -8,7 +8,7 @@
 		"build": "vite build",
 		"lint": "eslint .",
 		"preview": "vite preview",
-		"deploy": "npm run build && git checkout deploy && git rm -rf . && git checkout main -- dist && mv dist/* . && rm -rf dist && git add . && git commit -m 'Deploy update' && git push origin deploy --force && git checkout main"
+		"deploy": "npm run build && git add package.json package-lock.json && git commit -m 'Update deploy script' || echo 'No package changes' && git switch deploy && git rm -rf --quiet . && cp -r ../my-portfolio/dist/* . || echo 'No dist folder found' && git add -A && git commit -m 'Deploy update' || echo 'No changes to commit' && git push -f origin deploy && git switch main || git switch main"
 	},
 	"dependencies": {
 		"aos": "^2.3.4",
