@@ -1,0 +1,10 @@
+# 🧭 Git Workflow Guide
+
+## Always on main
+git add .
+git commit -m "Some change"
+git push origin main
+
+## Then deploy
+npm run deploy-safe
+
