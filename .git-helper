@@ -8,3 +8,4 @@ git push origin main
 ## Then deploy
 npm run deploy-safe
 
+npx rimraf node_modules dist .vite && npm install && npm run dev

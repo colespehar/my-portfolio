@@ -7,6 +7,7 @@
 		"dev": "npm run clean-dupes && vite",
 		"build": "vite build",
 		"lint": "eslint .",
+		"clean-local": "echo '🧹 Cleaning node_modules, dist, and .vite...' && rm -rf node_modules dist .vite package-lock.json && npm cache clean --force && echo '📦 Reinstalling dependencies...' && npm install && echo '✅ Done! You can now run npm run dev.'",
 		"clean-dupes": "node cleanup-dupes.js",
 		"deploy-safe": "BRANCH=$(git rev-parse --abbrev-ref HEAD) && if [ \"$BRANCH\" = \"deploy\" ]; then vite build && git add dist && git commit -m 'Rebuild deploy' && git push origin deploy; else echo '⚠️  Switch to deploy branch first (git switch deploy)'; fi",
 		"reset-dev": "echo '🧹 Cleaning node_modules, dist, and .vite...' && npx rimraf node_modules dist .vite && echo '📦 Reinstalling dependencies...' && npm install && echo '🚀 Starting dev server...' && npm run dev",
