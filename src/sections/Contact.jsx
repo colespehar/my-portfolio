@@ -3,11 +3,11 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-5 bg-body-tertiary">
+    <section id="contact" className="py-4 bg-body-tertiary">
       <Container>
         <Row className="align-items-center g-4">
           <Col lg={6} data-aos="fade-right">
-            <h2 className="fw-bold mb-3">Let's Connect!</h2>
+            <h2 className="fw-bold mt-3 mb-3">Let's Connect!</h2>
             <p className="mb-0">Open to opportunities, freelance work, and interesting problems. Reach out and say hello!</p>
           </Col>
           <Col lg={6} data-aos="fade-left">

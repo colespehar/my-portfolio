@@ -32,7 +32,7 @@ export default function Projects() {
     .slice(0, 3);
 
   return (
-    <section id="projects" className="py-5">
+    <section id="projects" className="py-2">
       <Container>
         {/* Header + Filter */}
         <div

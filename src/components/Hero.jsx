@@ -62,7 +62,7 @@ export default function Hero() {
               <span className="cursor" aria-hidden="true" />
             </h1>
 
-            <p className="lead opacity-75 mt-3">
+            <p className="lead opacity-75 mb-4 mt-4">
               Full-stack developer skilled in React, Node.js, and Python,
               with hands-on experience designing RESTful APIs,
               AWS-based ETL pipelines, and real-time analytics dashboards.
@@ -70,7 +70,7 @@ export default function Hero() {
               complex datasets into actionable insights.
             </p>
 
-            <div className="d-flex gap-2 mt-3">
+            <div className="d-flex gap-2 mt-4">
               <Button variant="primary" href="#projects">
                 <FaPlay className="me-2" />
                 See Projects

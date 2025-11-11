@@ -4,12 +4,13 @@
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "npm run clean-dupes && vite",
 		"build": "vite build",
 		"lint": "eslint .",
+		"clean-dupes": "node cleanup-dupes.js",
 		"deploy-safe": "BRANCH=$(git rev-parse --abbrev-ref HEAD) && if [ \"$BRANCH\" = \"deploy\" ]; then vite build && git add dist && git commit -m 'Rebuild deploy' && git push origin deploy; else echo '⚠️  Switch to deploy branch first (git switch deploy)'; fi",
 		"reset-dev": "echo '🧹 Cleaning node_modules, dist, and .vite...' && npx rimraf node_modules dist .vite && echo '📦 Reinstalling dependencies...' && npm install && echo '🚀 Starting dev server...' && npm run dev",
-		"reset-deploy": "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD); if [ \"$CURRENT_BRANCH\" != \"deploy\" ]; then echo '🚫 You are on \"$CURRENT_BRANCH\" — switch to deploy first (git switch deploy)'; exit 1; fi; echo '🌐 Switching to deploy branch...' && git pull origin deploy && echo '🔁 Merging latest main...' && git merge main --no-edit || true && echo '🏗️ Rebuilding production files...' && npm run build && git add dist && git commit -m 'Rebuild deploy from clean main' || true && echo '⬆️ Pushing to GitHub (deploy)...' && git push origin deploy --force && echo '✅ Deploy branch rebuilt and synced with main'"
+		"reset-deploy": "CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD); if [ \"$CURRENT_BRANCH\" != \"deploy\" ]; then echo '🚫 You are on \"$CURRENT_BRANCH\" — switch to deploy first (git switch deploy)'; exit 1; fi; echo '🌐 Pulling latest deploy branch...' && git pull origin deploy && echo '🔁 Merging latest main...' && git merge main --no-edit || true && echo '🏗️ Rebuilding production files...' && npm run build && git add dist && git commit -m 'Rebuild deploy from clean main' || true && echo '⬆️ Pushing to GitHub (deploy)...' && git push origin deploy --force && echo '✅ Deploy branch rebuilt and synced with main' && echo '🔄 Switching back to main branch...' && git switch main && echo '🚀 Restarting local dev server...' && npm run dev"
 	},
 	"dependencies": {
 		"aos": "^2.3.4",
