@@ -107,7 +107,7 @@ export const PROJECTS = [
 		},
 		links: {
 			github: "https://github.com/colespehar/ai-minimap-tracker",
-			demo: "https://your-demo-link.com",
+			demo: "https://cdn.pixabay.com/photo/2020/07/08/13/54/coming-soon-5383990_1280.jpg",
 		},
 	},
 ];

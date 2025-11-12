@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { FaGithub, FaLinkedin, FaEnvelope, FaPlay } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaEnvelope, FaPlay, FaPhone } from "react-icons/fa";
 import Lottie from "lottie-react";
 import cycling from "../assets/animations/cycling.json";
 import golf from "../assets/animations/golf.json";
@@ -57,7 +57,7 @@ export default function Hero() {
           <Col md={7} className="mb-4 mb-md-0" data-aos="fade-up">
             <h1 className="display-5 fw-bold typing">
               {showBefore}
-              <span className="text-primary">{showName}</span>
+              <span className="name-glow">{showName}</span>
               {showAfter}
               <span className="cursor" aria-hidden="true" />
             </h1>
@@ -79,32 +79,18 @@ export default function Hero() {
                 Contact
               </Button>
             </div>
-
-            <div className="d-flex gap-3 mt-4">
-              <a
-                className="text-decoration-none"
-                href="https://github.com/colespehar"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-              >
+            <div className="d-flex gap-3 mt-4 socials">
+              <a href="https://github.com/colespehar" target="_blank" rel="noreferrer">
                 <FaGithub size={22} />
               </a>
-              <a
-                className="text-decoration-none"
-                href="https://www.linkedin.com/in/colespehar/"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-              >
+              <a href="https://www.linkedin.com/in/colespehar/" target="_blank" rel="noreferrer">
                 <FaLinkedin size={22} />
               </a>
-              <a
-                className="text-decoration-none"
-                href="mailto:cole.spehar97@gmail.com"
-                aria-label="Email"
-              >
+              <a href="mailto:cole.spehar97@gmail.com">
                 <FaEnvelope size={22} />
+              </a>
+              <a href="tel:+12262201109">
+                <FaPhone size={22} />
               </a>
             </div>
           </Col>

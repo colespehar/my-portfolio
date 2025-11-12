@@ -32,7 +32,7 @@ export default function ProjectCard({ project, onOpen }) {
 
   return (
     <Card
-      className="h-100 border-0 shadow-sm project-card"
+      className="h-100 border-0 project-card"
       data-category={project.category}
       onClick={() => onOpen(project)}
       onMouseEnter={onEnter}

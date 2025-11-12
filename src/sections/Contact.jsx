@@ -11,7 +11,7 @@ export default function Contact() {
             <p className="mb-0">Open to opportunities, freelance work, and interesting problems. Reach out and say hello!</p>
           </Col>
           <Col lg={6} data-aos="fade-left">
-            <div className="p-4 border rounded-4 shadow-sm">
+            <div className="contact-box p-4 rounded-4">
               <Form action="mailto:cole.spehar97@gmail.com" method="post" encType="text/plain">
                 <Row className="g-3">
                   <Col md={6}><Form.Control required placeholder="Your name" /></Col>

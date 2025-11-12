@@ -20,7 +20,7 @@ export default function About() {
         </div>
 
         {/* Toolkit & Skills */}
-        <div data-aos="fade-up" className="mt-5">
+        <div data-aos="fade-up" className="toolkit-section">
           <h3 className="fw-bold mb-4 text-primary">Toolkit & Skills</h3>
 
           <Row className="gy-4 gx-md-5">
