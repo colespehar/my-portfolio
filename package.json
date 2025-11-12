@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "npm run clean-dupes && vite",
 		"build": "vite build",
+		"preview": "vite preview",
 		"lint": "eslint .",
 		"clean-local": "echo '🧹 Cleaning node_modules, dist, and .vite...' && rm -rf node_modules dist .vite package-lock.json && npm cache clean --force && echo '📦 Reinstalling dependencies...' && npm install && echo '✅ Done! You can now run npm run dev.'",
 		"clean-dupes": "node cleanup-dupes.js",
