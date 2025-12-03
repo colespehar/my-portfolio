@@ -1,17 +1,17 @@
 // IMPORT ALL ASSETS (Vite will now include them in dist/assets/)
-import advisorPic from "../assets/advisorpicture.png";
-import advisorVid from "../assets/advisorvideo.mp4";
+import advisorPic from "../assets/advisorpicture.webp";
+// import advisorVid from "../public/media/snapmix-720p.mp4";
 
 import awsImg from "../assets/aws.png";
 
-import retireImg from "../assets/retire.png";
+import retireImg from "../assets/retire.webp";
 
-import interviewImg from "../assets/interview-prep-img.png";
+import interviewImg from "../assets/interview-prep-img.webp";
 
-import snapmixImg from "../assets/snapnmix.png";
-import snapmixVid from "../assets/SnapMix.mp4";
+import snapmixImg from "../assets/snapnmix.webp";
+// import snapmixVid from "../public/media/snapmix-720p.mp4";
 
-import minimapImg from "../assets/minimaptrack.png";
+import minimapImg from "../assets/minimaptrack.webp";
 
 export const PROJECTS = [
 	{
@@ -25,9 +25,9 @@ export const PROJECTS = [
 		img: advisorPic,
 		media: {
 			type: "video",
-			preview: advisorVid,
+			preview: "/media/advisor-720p.mp4",
 			poster: advisorPic,
-			modal: advisorVid,
+			modal: "/media/advisor-720p.mp4",
 		},
 		links: { github: "https://github.com/", demo: "#" },
 	},
@@ -100,9 +100,9 @@ export const PROJECTS = [
 		img: snapmixImg,
 		media: {
 			type: "video",
-			preview: snapmixVid,
+			preview: "/media/snapmix-720p.mp4",
 			poster: snapmixImg,
-			modal: snapmixVid,
+			modal: "/media/snapmix-720p.mp4",
 		},
 		links: {
 			github: "https://github.com/colespehar/snapnmix",

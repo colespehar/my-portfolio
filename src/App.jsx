@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense } from "react";
 import AOS from "aos";
 import { Container } from "react-bootstrap";
 import SiteNavbar from "./components/SiteNavbar.jsx";
 import Hero from "./components/Hero.jsx";
-import About from "./sections/About.jsx";
-import Projects from "./sections/Projects.jsx";
-import Contact from "./sections/Contact.jsx";
 import ScrollTop from "./components/ScrollTop.jsx";
 import { animateCounter } from "./utils/anim.js";
+
+const About = React.lazy(() => import("./sections/About.jsx"));
+const Projects = React.lazy(() => import("./sections/Projects.jsx"));
+const Contact = React.lazy(() => import("./sections/Contact.jsx"));
 
 export default function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "dark");
@@ -53,19 +54,22 @@ export default function App() {
 
       <main>
         <Hero countersRef={countersRef} />
-        <About />
-        <Projects />
-        <Contact />
+
+        <Suspense fallback={null}>
+          <About />
+          <Projects />
+          <Contact />
+        </Suspense>
       </main>
 
-     <footer className="py-4">
+      <footer className="py-4">
         <Container className="d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
           <small className="text-body-secondary">© {new Date().getFullYear()} Cole Spehar</small>
         </Container>
-    </footer>
+      </footer>
 
-    {/* Only one Back to Top button, scroll-triggered */}
-    <ScrollTop visible={showTop} />
+      {/* Only one Back to Top button, scroll-triggered */}
+      <ScrollTop visible={showTop} />
     </>
   );
 }
