@@ -63,11 +63,12 @@ export default function Hero() {
             </h1>
 
             <p className="lead opacity-75 mb-4 mt-4">
-              Full-stack developer skilled in React, Node.js, and Python,
-              with hands-on experience designing RESTful APIs,
-              AWS-based ETL pipelines, and real-time analytics dashboards.
-              I focus on clean architecture, scalability, and turning
-              complex datasets into actionable insights.
+              Full-Stack Engineer based in Toronto, specializing in React,
+              Node.js, and AWS Cloud Architecture. I have a proven track record of
+              transforming complex datasets into actionable insights through
+              scalable web applications and real-time analytics. Beyond the IDE, I’m a
+              dedicated cyclist and golfer who believes the discipline of
+              sport translates directly into the precision of my code.
             </p>
 
             <div className="d-flex gap-2 mt-4">

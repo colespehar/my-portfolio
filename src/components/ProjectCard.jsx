@@ -5,7 +5,8 @@ export default function ProjectCard({ project, onOpen }) {
   const [hovered, setHovered] = useState(false);
   const videoRef = useRef(null);
 
-  const isWork = project.category === "work";
+  const isWork = project.category === "work" && project.categorygroup != "WellingtonAccess";
+  // const isWellingtonAccess = project.categorygroup === "WellingtonAccess";
 
   const hasVideo = project.media?.type === "video" && project.media.preview;
   const hasGif = project.media?.type === "gif" && project.media.preview;
@@ -34,6 +35,7 @@ export default function ProjectCard({ project, onOpen }) {
     <Card
       className="h-100 border-0 project-card"
       data-category={project.category}
+      data-categorygroup={project.categorygroup}
       onClick={() => onOpen(project)}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}

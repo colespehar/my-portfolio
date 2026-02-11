@@ -9,13 +9,14 @@ export default function About() {
         <div data-aos="fade-up">
           <h2 className="fw-bold mb-4">About</h2>
           <p className="lead mb-4">
-            I’m a <strong>full stack developer</strong> passionate about turning
-            data and design into seamless digital experiences. I specialize in
-            building web applications that are <strong>fast, scalable, and intuitive</strong> — blending
-            React, Node.js, and AWS technologies to deliver reliable,
-            production-ready systems. My focus is on <strong>clean architecture</strong>,
-            measurable performance, and continuous improvement through
-            analytics and experimentation.
+            I build software that bridges the gap between
+            sophisticated data and intuitive design. As a
+            Full-Stack Developer with a background in
+            enterprise finance and freelance innovation, I’ve
+            spent my career scaling platforms like PrepPal and
+            architecting secure, cloud-native solutions. I thrive
+            at the intersection of TypeScript, React, and Node.js,
+            focusing on clean code that scales.
           </p>
         </div>
 
