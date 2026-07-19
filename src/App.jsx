@@ -4,6 +4,7 @@ import { Container } from "react-bootstrap";
 import SiteNavbar from "./components/SiteNavbar.jsx";
 import Hero from "./components/Hero.jsx";
 import ScrollTop from "./components/ScrollTop.jsx";
+import ErrorBoundary from "./components/ErrorBoundary.jsx";
 
 const About = React.lazy(() => import("./sections/About.jsx"));
 const Projects = React.lazy(() => import("./sections/Projects.jsx"));
@@ -35,11 +36,13 @@ export default function App() {
       <main>
         <Hero />
 
-        <Suspense fallback={null}>
-          <About />
-          <Projects />
-          <Contact />
-        </Suspense>
+        <ErrorBoundary>
+          <Suspense fallback={null}>
+            <About />
+            <Projects />
+            <Contact />
+          </Suspense>
+        </ErrorBoundary>
       </main>
 
       <footer className="py-4">

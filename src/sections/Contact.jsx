@@ -14,9 +14,18 @@ export default function Contact() {
             <div className="contact-box p-4 rounded-4">
               <Form action="mailto:cole.spehar97@gmail.com" method="post" encType="text/plain">
                 <Row className="g-3">
-                  <Col md={6}><Form.Control required placeholder="Your Name" /></Col>
-                  <Col md={6}><Form.Control required type="email" placeholder="Email" /></Col>
-                  <Col xs={12}><Form.Control as="textarea" rows={4} placeholder="Message..." /></Col>
+                  <Col md={6}>
+                    <Form.Label htmlFor="contact-name" className="visually-hidden">Your Name</Form.Label>
+                    <Form.Control id="contact-name" name="name" required placeholder="Your Name" autoComplete="name" />
+                  </Col>
+                  <Col md={6}>
+                    <Form.Label htmlFor="contact-email" className="visually-hidden">Email</Form.Label>
+                    <Form.Control id="contact-email" name="email" required type="email" placeholder="Email" autoComplete="email" />
+                  </Col>
+                  <Col xs={12}>
+                    <Form.Label htmlFor="contact-message" className="visually-hidden">Message</Form.Label>
+                    <Form.Control id="contact-message" name="message" as="textarea" rows={4} required placeholder="Message..." />
+                  </Col>
                   <Col xs={12} className="d-flex justify-content-end">
                     <Button type="submit" variant="primary">Send</Button>
                   </Col>

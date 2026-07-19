@@ -43,6 +43,16 @@ export default function ProjectCard({ project, onOpen }) {
     }
   };
 
+  // The card is the only way into the modal for "work" projects, whose action
+  // buttons are hidden below — without this it is unreachable by keyboard.
+  const onKeyDown = (e) => {
+    if (e.target !== e.currentTarget) return; // let nested buttons handle their own keys
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault(); // Space would otherwise scroll the page
+      onOpen(project);
+    }
+  };
+
   return (
     <Card
       className="h-100 border-0 project-card"
@@ -51,7 +61,12 @@ export default function ProjectCard({ project, onOpen }) {
       onClick={() => onOpen(project)}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
+      onKeyDown={onKeyDown}
+      onFocus={onEnter}
+      onBlur={onLeave}
       role="button"
+      tabIndex={0}
+      aria-label={`${project.title} — view details`}
     >
       <div className="ratio ratio-16x9 overflow-hidden rounded-top media-wrap position-relative">
         {/* Base static image */}
