@@ -48,12 +48,15 @@ export default function Projects() {
               Filter by tag or search titles/descriptions.
             </p>
           </div>
-          <div className="d-flex flex-wrap gap-2">
+          {/* Which tag is active was conveyed by colour alone, so it did not
+              reach assistive tech (and fails WCAG 1.4.1). */}
+          <div className="d-flex flex-wrap gap-2" role="group" aria-label="Filter projects by tag">
             {tags.map((t) => (
               <Button
                 key={t}
                 size="sm"
                 variant={t === activeTag ? "primary" : "outline-secondary"}
+                aria-pressed={t === activeTag}
                 onClick={() => setActiveTag(t)}
               >
                 {t}
@@ -63,8 +66,15 @@ export default function Projects() {
         </div>
 
         {/* Search bar */}
-        <Form className="mb-5" data-aos="fade-up">
+        <Form className="mb-5" data-aos="fade-up" role="search">
+          {/* A placeholder is not an accessible name, and it disappears as soon
+              as you start typing. */}
+          <Form.Label htmlFor="project-search" className="visually-hidden">
+            Search projects by title or description
+          </Form.Label>
           <Form.Control
+            id="project-search"
+            name="project-search"
             type="search"
             value={search}
             onChange={(e) => setSearch(e.target.value)}

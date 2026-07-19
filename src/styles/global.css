@@ -405,9 +405,19 @@ body {
   outline: none;                                       /* safety */
 }
 
+/* The previous ring was rgba(255,255,255,0.06) with outline:none on top of it,
+   which is invisible against the dark contact box — keyboard users had no way
+   to tell which field they were in. :focus-visible keeps it off for mouse
+   clicks while meeting the 3:1 the indicator needs. */
 #contact .form-control:focus {
   border-color: rgba(255, 255, 255, 0.28) !important;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06) !important; /* very soft */
+}
+
+#contact .form-control:focus-visible {
+  border-color: var(--custom-accent) !important;
+  box-shadow: 0 0 0 3px rgba(161, 0, 242, 0.55) !important;
+  outline: 2px solid transparent; /* visible in forced-colors mode */
+  outline-offset: 2px;
 }
 
 /* Hover state — slightly more intense glow */
