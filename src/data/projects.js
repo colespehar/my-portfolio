@@ -39,7 +39,8 @@ export const PROJECTS = [
 			poster: advisorPic,
 			modal: "/media/advisor-720p.mp4",
 		},
-		links: { /* github: "https://github.com/",*/ demo: "#" },
+		// Internal Wellington-Altus work — no public demo or repo to link to.
+		links: {},
 	},
 
 	{
@@ -52,10 +53,8 @@ export const PROJECTS = [
 			"A fully automated ETL pipeline for processing NBIN trade data, using AWS Glue, S3, Lambda, Athena, and Redshift. Integrated validation logic ensured accurate and reliable delivery of clean trade data to advisor dashboards.",
 		img: awsImg,
 		media: {
-			type: "video",
-			preview: awsImg,
+			type: "image",
 			poster: awsImg,
-			modal: awsImg,
 		},
 		// links: { demo: "#" },
 	},
@@ -70,10 +69,8 @@ export const PROJECTS = [
 			"An interactive platform built with React, Bootstrap, and Chart.js to help advisors manage retirement portfolios. Features data-driven fund visualizations, permission-based access controls, and responsive layouts for desktop and mobile.",
 		img: retireImg,
 		media: {
-			type: "video",
-			preview: retireImg,
+			type: "image",
 			poster: retireImg,
-			modal: retireImg,
 		},
 		// links: { github: "https://github.com/", demo: "#" },
 	},
@@ -88,10 +85,8 @@ export const PROJECTS = [
 			"An AI-powered interview preparation platform simulating real job interviews using Vapi voice agents and Google Gemini. Built with Next.js, Firebase, and Tailwind CSS for responsive design and integrated with shadcn/ui for a polished UI experience.",
 		img: interviewImg,
 		media: {
-			type: "video",
-			preview: interviewImg,
+			type: "image",
 			poster: interviewImg,
-			modal: interviewImg,
 		},
 		links: {
 			github: "https://github.com/colespehar/preppal_ai_interview",
@@ -132,14 +127,13 @@ export const PROJECTS = [
 			"A real-time minimap tracking system for Call of Duty gameplay, built with Python and computer vision. Detects player movement, death events, and objectives for advanced analytics and team performance review.",
 		img: minimapImg,
 		media: {
-			type: "video",
-			preview: minimapImg,
+			type: "image",
 			poster: minimapImg,
-			modal: minimapImg,
 		},
+		// No hosted demo yet. Omit rather than pointing at a placeholder — the
+		// card only renders a Demo button when there is a real link.
 		links: {
 			github: "https://github.com/colespehar/ai-minimap-tracker",
-			demo: "https://cdn.pixabay.com/photo/2020/07/08/13/54/coming-soon-5383990_1280.jpg",
 		},
 	},
 ];
