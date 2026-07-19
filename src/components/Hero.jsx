@@ -1,24 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FaGithub, FaLinkedin, FaEnvelope, FaPlay, FaPhone } from "react-icons/fa";
-import Lottie from "lottie-react";
-import cycling from "../assets/animations/cycling.json";
-import golf from "../assets/animations/golf.json";
-import gym from "../assets/animations/gym.json";
+import { HOBBIES } from "./hobbies.js";
+
+const HobbyAnimations = React.lazy(() => import("./HobbyAnimations.jsx"));
+
+// Same dimensions as the real icons (.hero-hobby-icon) so the swap is shift-free.
+function HobbyPlaceholder() {
+  return HOBBIES.map(({ key, label }) => (
+    <div key={key} className="d-flex flex-column align-items-center">
+      <div className="hero-hobby-icon" aria-hidden="true" />
+      <span className="hero-hobby-label text-light">{label}</span>
+    </div>
+  ));
+}
 
 /* typing hook unchanged */
 function useTypeCount(totalChars, speed = 80, startDelay = 0) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     let i = 0;
+    let id;
     const start = setTimeout(() => {
-      const id = setInterval(() => {
+      id = setInterval(() => {
         i += 1;
         setCount((c) => (c < totalChars ? c + 1 : c));
         if (i >= totalChars) clearInterval(id);
       }, speed);
     }, startDelay);
-    return () => clearTimeout(start);
+    return () => {
+      clearTimeout(start);
+      clearInterval(id);
+    };
   }, [totalChars, speed, startDelay]);
   return count;
 }
@@ -102,20 +115,9 @@ export default function Hero() {
               <h2 className="h6 mb-4 text-light fw-semibold">Outside of Code</h2>
 
               <div className="d-flex justify-content-around align-items-center flex-wrap gap-4">
-                <div className="d-flex flex-column align-items-center">
-                  <Lottie animationData={cycling} loop autoplay className="hero-hobby-icon" />
-                  <span className="hero-hobby-label text-light">Cycling</span>
-                </div>
-
-                <div className="d-flex flex-column align-items-center">
-                  <Lottie animationData={golf} loop autoplay className="hero-hobby-icon" />
-                  <span className="hero-hobby-label text-light">Golf</span>
-                </div>
-
-                <div className="d-flex flex-column align-items-center">
-                  <Lottie animationData={gym} loop autoplay className="hero-hobby-icon" />
-                  <span className="hero-hobby-label text-light">Gym</span>
-                </div>
+                <Suspense fallback={<HobbyPlaceholder />}>
+                  <HobbyAnimations />
+                </Suspense>
               </div>
             </div>
           </Col>

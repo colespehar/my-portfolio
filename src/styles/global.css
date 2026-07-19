@@ -53,7 +53,7 @@ body {
       rgba(0, 0, 0, 0.6) 40%,
       rgba(0, 0, 0, 0.75) 100%
     ),
-    url("../assets/purplebgupdated.jpg?v=2");
+    url("../assets/purplebgupdated.webp");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -490,10 +490,6 @@ body {
 
 .opacity-100 {
   opacity: 1;
-}
-
-.media-layer {
-  transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out;
 }
 
 /* ==============================

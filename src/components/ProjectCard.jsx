@@ -8,8 +8,20 @@ export default function ProjectCard({ project, onOpen }) {
   const isWork = project.category === "work" && project.categorygroup != "WellingtonAccess";
   // const isWellingtonAccess = project.categorygroup === "WellingtonAccess";
 
-  const hasVideo = project.media?.type === "video" && project.media.preview;
-  const hasGif = project.media?.type === "gif" && project.media.preview;
+  // Several entries declare type:"video" but point `preview` at a still image.
+  // Verify the extension (same guard ProjectModal uses) so we don't swap the
+  // poster out for a <video> that can never render.
+  const hasVideo =
+    project.media?.type === "video" &&
+    project.media.preview &&
+    /\.(mp4|webm|ogg)$/i.test(project.media.preview);
+  const hasGif =
+    project.media?.type === "gif" &&
+    project.media.preview &&
+    /\.gif$/i.test(project.media.preview);
+
+  // Only fade the poster out when there is actually something behind it.
+  const hasHoverMedia = hasVideo || hasGif;
 
   const onEnter = () => {
     setHovered(true);
@@ -46,7 +58,7 @@ export default function ProjectCard({ project, onOpen }) {
         <img
           src={project.media?.poster || project.img}
           alt={project.title}
-          className={`w-100 h-100 object-fit-cover position-absolute top-0 start-0 transition-opacity ${hovered ? "opacity-0" : "opacity-100"
+          className={`w-100 h-100 object-fit-cover position-absolute top-0 start-0 transition-opacity ${hovered && hasHoverMedia ? "opacity-0" : "opacity-100"
             }`}
           loading="lazy"
         />

@@ -6,13 +6,19 @@ export default function SiteNavbar() {
   const navRef = useRef(null);
 
   useEffect(() => {
-    const sections = ["hero", "about", "projects", "contact"]
-      .map((id) => ({ id, el: document.getElementById(id) }))
-      .filter((s) => s.el);
+    // Re-queried on every pass: About/Projects/Contact are React.lazy and are
+    // not in the DOM yet when this effect first runs.
+    const getSections = () =>
+      ["hero", "about", "projects", "contact"]
+        .map((id) => ({ id, el: document.getElementById(id) }))
+        .filter((s) => s.el);
 
     const getNavH = () => (navRef.current?.offsetHeight ?? 0);
 
     const computeActive = () => {
+      const sections = getSections();
+      if (!sections.length) return;
+
       const navH = getNavH();
       const marker = window.scrollY + navH + 16;
 
@@ -44,17 +50,27 @@ export default function SiteNavbar() {
       setActive(current);
     };
 
+    // computeActive reads layout (offsetTop/offsetHeight/scrollHeight), so
+    // coalesce bursts of scroll events down to one measurement per frame.
+    let frame = 0;
+    const schedule = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        computeActive();
+      });
+    };
+
     computeActive();
-    const onScroll = () => computeActive();
-    const onResize = () => computeActive();
     const onHash = () => setTimeout(computeActive, 0);
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
     window.addEventListener("hashchange", onHash);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
       window.removeEventListener("hashchange", onHash);
     };
   }, []);

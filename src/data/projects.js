@@ -2,7 +2,7 @@
 import advisorPic from "../assets/advisorpicture.webp";
 // import advisorVid from "../public/media/snapmix-720p.mp4";
 
-import awsImg from "../assets/aws.png";
+import awsImg from "../assets/aws.webp";
 
 import retireImg from "../assets/retire.webp";
 

@@ -12,7 +12,9 @@ export default defineConfig({
 			output: {
 				manualChunks: {
 					react: ["react", "react-dom"],
-					vendor: ["aos", "lottie-react", "react-bootstrap", "react-icons"],
+					// lottie-react is deliberately absent: listing it here would force it
+					// into this eager chunk and undo Hero's lazy import.
+					vendor: ["aos", "react-bootstrap", "react-icons"],
 				},
 				assetFileNames: "assets/[name]-[hash][extname]",
 				chunkFileNames: "assets/[name]-[hash].js",
