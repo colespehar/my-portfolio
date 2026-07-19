@@ -1,6 +1,7 @@
 // src/components/ProjectModal.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, Button, Badge } from "react-bootstrap";
+import { isRealLink } from "../utils/links.js";
 
 export default function ProjectModal({ project, onHide }) {
   const videoRef = useRef(null);
@@ -111,7 +112,7 @@ export default function ProjectModal({ project, onHide }) {
 
             {/* Action buttons */}
             <div className="d-flex gap-2 flex-wrap">
-              {project.links?.demo && (
+              {isRealLink(project.links?.demo) && (
                 <Button
                   variant="primary"
                   href={project.links.demo}
@@ -121,7 +122,7 @@ export default function ProjectModal({ project, onHide }) {
                   Live Demo
                 </Button>
               )}
-              {project.links?.github && (
+              {isRealLink(project.links?.github) && (
                 <Button
                   variant="outline-secondary"
                   href={project.links.github}

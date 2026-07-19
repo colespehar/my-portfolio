@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Card, Badge, Button } from "react-bootstrap";
+import { isRealLink } from "../utils/links.js";
 
 export default function ProjectCard({ project, onOpen }) {
   const [hovered, setHovered] = useState(false);
@@ -132,21 +133,29 @@ export default function ProjectCard({ project, onOpen }) {
         {/* Actions — hidden for work projects */}
         {!isWork && (
           <div className="mt-auto d-flex flex-wrap gap-2 card-actions">
-            {project.links?.demo && (
+            {/* Open externally, matching ProjectModal — following these in the
+                same tab navigates the visitor off the portfolio entirely. */}
+            {isRealLink(project.links?.demo) && (
               <Button
                 size="sm"
                 variant="outline-primary"
                 href={project.links.demo}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${project.title} — live demo (opens in a new tab)`}
                 onClick={(e) => e.stopPropagation()}
               >
                 Demo
               </Button>
             )}
-            {project.links?.github && (
+            {isRealLink(project.links?.github) && (
               <Button
                 size="sm"
                 variant="outline-secondary"
                 href={project.links.github}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`${project.title} — source code (opens in a new tab)`}
                 onClick={(e) => e.stopPropagation()}
               >
                 Code

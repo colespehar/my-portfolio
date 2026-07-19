@@ -25,11 +25,14 @@ export default function Projects() {
     );
   }, [activeTag, search]);
 
-  // Limit Work Projects to 4, Personal to 3
-  const workProjects = filtered.filter((p) => p.category === "work").slice(0, 4);
-  const personalProjects = filtered
-    .filter((p) => p.category === "personal")
-    .slice(0, 3);
+  // The caps keep the default view tidy, but applying them to a filtered list
+  // would silently drop matches the visitor explicitly asked for.
+  const isFiltering = activeTag !== ALL_TAG || search.trim() !== "";
+  const cap = (list, n) => (isFiltering ? list : list.slice(0, n));
+
+  const workProjects = cap(filtered.filter((p) => p.category === "work"), 4);
+  const personalProjects = cap(filtered.filter((p) => p.category === "personal"), 3);
+  const hasResults = workProjects.length > 0 || personalProjects.length > 0;
 
   return (
     <section id="projects" className="py-2">
@@ -69,28 +72,52 @@ export default function Projects() {
           />
         </Form>
 
-        {/* Personal Projects */}
-        <h3 className="fw-bold mb-3">Personal Projects</h3>
-        <Row xs={1} sm={2} md={2} lg={3} xl={3} className="g-4">
-          {personalProjects.map((p, idx) => (
-            <Col key={p.id} data-aos="fade-up" data-aos-delay={idx * 50}>
-              <ProjectCard project={p} onOpen={setSelected} />
-            </Col>
-          ))}
-        </Row>
+        {/* A bare heading over an empty grid reads as broken, so each section
+            only appears when it has something to show. */}
+        {personalProjects.length > 0 && (
+          <>
+            <h3 className="fw-bold mb-3">Personal Projects</h3>
+            <Row xs={1} sm={2} md={2} lg={3} xl={3} className="g-4">
+              {personalProjects.map((p, idx) => (
+                <Col key={p.id} data-aos="fade-up" data-aos-delay={idx * 50}>
+                  <ProjectCard project={p} onOpen={setSelected} />
+                </Col>
+              ))}
+            </Row>
+          </>
+        )}
 
-        {/* Add spacing between personal and work projects */}
-        <div className="my-5" /> {/* <-- clean spacer */}
+        {personalProjects.length > 0 && workProjects.length > 0 && (
+          <div className="my-5" />
+        )}
 
-        {/* Work Projects */}
-        <h3 className="fw-bold mb-3">Work Projects</h3>
-        <Row xs={1} sm={2} md={2} lg={3} xl={3} className="g-4 mb-5">
-          {workProjects.map((p, idx) => (
-            <Col key={p.id} data-aos="fade-up" data-aos-delay={idx * 50}>
-              <ProjectCard project={p} onOpen={setSelected} />
-            </Col>
-          ))}
-        </Row>
+        {workProjects.length > 0 && (
+          <>
+            <h3 className="fw-bold mb-3">Work Projects</h3>
+            <Row xs={1} sm={2} md={2} lg={3} xl={3} className="g-4 mb-5">
+              {workProjects.map((p, idx) => (
+                <Col key={p.id} data-aos="fade-up" data-aos-delay={idx * 50}>
+                  <ProjectCard project={p} onOpen={setSelected} />
+                </Col>
+              ))}
+            </Row>
+          </>
+        )}
+
+        {!hasResults && (
+          <div className="text-center py-5" role="status" aria-live="polite">
+            <p className="text-body-secondary mb-3">
+              No projects match that search.
+            </p>
+            <Button
+              variant="outline-secondary"
+              size="sm"
+              onClick={() => { setSearch(""); setActiveTag(ALL_TAG); }}
+            >
+              Clear filters
+            </Button>
+          </div>
+        )}
       </Container>
 
       <ProjectModal project={selected} onHide={() => setSelected(null)} />
