@@ -33,7 +33,9 @@ export const PROJECTS = [
 		img: advisorPic,
 		media: {
 			type: "video",
-			preview: "/media/advisor-720p.mp4",
+			// Short silent clip for the muted hover preview; the modal keeps the
+			// full-length video with audio.
+			preview: "/media/advisor-preview.mp4",
 			poster: advisorPic,
 			modal: "/media/advisor-720p.mp4",
 		},
@@ -108,7 +110,9 @@ export const PROJECTS = [
 		img: snapmixImg,
 		media: {
 			type: "video",
-			preview: "/media/snapmix-720p.mp4",
+			// Short silent clip for the muted hover preview; the modal keeps the
+			// full-length video with audio.
+			preview: "/media/snapmix-preview.mp4",
 			poster: snapmixImg,
 			modal: "/media/snapmix-720p.mp4",
 		},
