@@ -11,17 +11,20 @@ const Projects = React.lazy(() => import("./sections/Projects.jsx"));
 const Contact = React.lazy(() => import("./sections/Contact.jsx"));
 
 export default function App() {
-  const [theme] = useState(() => localStorage.getItem("theme") || "dark");
   const [showTop, setShowTop] = useState(false);
 
+  // data-bs-theme="dark" is set in index.html — the site is dark-only.
   useEffect(() => {
-    AOS.init({ duration: 700, once: true, offset: 60, easing: "ease-out-cubic" });
+    AOS.init({
+      duration: 700,
+      once: true,
+      offset: 60,
+      easing: "ease-out-cubic",
+      // WCAG 2.3.3: honour a reduced-motion preference.
+      disable: () =>
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    });
   }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute("data-bs-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
   useEffect(() => {
     const onScroll = () => setShowTop(window.scrollY > 600);
@@ -31,9 +34,11 @@ export default function App() {
 
   return (
     <>
+      <a href="#main" className="skip-link">Skip to main content</a>
+
       <SiteNavbar />
 
-      <main>
+      <main id="main">
         <Hero />
 
         <ErrorBoundary>

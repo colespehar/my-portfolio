@@ -1,9 +1,14 @@
 <!doctype html>
-<html lang="en">
+<!-- Dark-only by design: the stylesheet has no light-theme variants. Setting
+     this here rather than from JS means no flash of the wrong theme on load. -->
+<html lang="en" data-bs-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/webp" href="./favicon.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tells the browser to render scrollbars, form controls and the like
+         in dark, instead of light chrome around a dark page. -->
+    <meta name="color-scheme" content="dark" />
     <title>Cole Spehar — Full-Stack Engineer</title>
     <meta
       name="description"

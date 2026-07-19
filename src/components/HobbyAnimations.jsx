@@ -8,6 +8,14 @@ import { HOBBIES } from "./hobbies.js";
 
 const DATA = { cycling, golf, gym };
 
+// These are looping decorative animations. The stylesheet's reduced-motion
+// rule only reaches CSS animations, so the JS-driven player needs its own
+// check (WCAG 2.3.3). Read once at module load — this is a render-time
+// decision and the preference changing mid-session is not worth a listener.
+const PREFERS_REDUCED_MOTION =
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
 /**
  * Split out of Hero so the ~306KB lottie-web player is fetched lazily
  * instead of blocking first paint. The placeholder in Hero mirrors this
@@ -24,7 +32,12 @@ const HobbyAnimations = React.memo(function HobbyAnimations() {
     <>
       {HOBBIES.map(({ key, label }) => (
         <div key={key} className="d-flex flex-column align-items-center">
-          <Lottie animationData={DATA[key]} loop autoplay className="hero-hobby-icon" />
+          <Lottie
+            animationData={DATA[key]}
+            loop={!PREFERS_REDUCED_MOTION}
+            autoplay={!PREFERS_REDUCED_MOTION}
+            className="hero-hobby-icon"
+          />
           <span className="hero-hobby-label text-light">{label}</span>
         </div>
       ))}

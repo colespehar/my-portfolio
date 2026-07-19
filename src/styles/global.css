@@ -15,6 +15,9 @@ body {
 }
 
 :root {
+  /* Dark-only site: keep browser-rendered UI (scrollbars, form controls,
+     date pickers) dark to match. */
+  color-scheme: dark;
   --custom-accent: #a100f2;
   --bs-primary: var(--custom-accent);
   --bs-primary-rgb: 161, 0, 242;
@@ -32,15 +35,22 @@ body {
   color: var(--custom-accent) !important;
 }
 
-.theme-toggle-purple {
-  border-color: var(--custom-accent) !important;
-  color: var(--custom-accent) !important;
+/* Off-screen until focused, so keyboard users can jump past the nav. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 2000;
+  padding: 0.6rem 1rem;
+  background: var(--custom-accent);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0 0 0.4rem 0;
+  text-decoration: none;
 }
 
-.theme-toggle-purple:hover,
-.theme-toggle-purple:focus {
-  background-color: var(--custom-accent) !important;
-  color: #fff !important;
+.skip-link:focus {
+  left: 0;
 }
 
 /* ==============================
@@ -928,12 +938,6 @@ body {
 
   .navbar-collapse .nav-link:hover {
     color: var(--custom-accent) !important;
-  }
-
-  .navbar-collapse .theme-toggle-purple {
-    width: 90%;
-    margin: 0.5rem auto 0;
-    display: block;
   }
 }
 
