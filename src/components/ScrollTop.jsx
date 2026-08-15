@@ -8,8 +8,13 @@ export default function ScrollTop({ visible }) {
       aria-label="Scroll to top"
       className={`scroll-top-btn ${visible ? "show" : ""}`}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      // The hidden state is opacity + pointer-events, which stops the mouse but
+      // not the Tab key — without these, keyboard users land on an invisible
+      // button floating over the page.
+      tabIndex={visible ? 0 : -1}
+      aria-hidden={!visible}
     >
-      <FaArrowUp />
+      <FaArrowUp aria-hidden="true" />
     </Button>
   );
 }

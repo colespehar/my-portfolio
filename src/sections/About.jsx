@@ -27,16 +27,16 @@ export default function About() {
           <Row className="gy-4 gx-md-5">
             {/* Column 1 */}
             <Col md={6}>
-              <h5 className="fw-semibold text-primary mb-2">
+              <h4 className="h5 fw-semibold text-primary mb-2">
                 Languages & Frameworks
-              </h5>
+              </h4>
               <p className="text-body-secondary mb-4">
                 Python, JavaScript, React, TypeScript, Next.js, Node.js, C#, C, C++, Java, Flask
               </p>
 
-              <h5 className="fw-semibold text-primary mb-2">
+              <h4 className="h5 fw-semibold text-primary mb-2">
                 Cloud & Data Infrastructure
-              </h5>
+              </h4>
               <p className="text-body-secondary mb-4">
                 AWS Glue, Lambda, S3, CloudWatch, Athena, Redshift, SQL /
                 NoSQL / MySQL, ETL Pipelines, Data Visualization
@@ -45,17 +45,17 @@ export default function About() {
 
             {/* Column 2 */}
             <Col md={6}>
-              <h5 className="fw-semibold text-primary mb-2">
+              <h4 className="h5 fw-semibold text-primary mb-2">
                 Development Tools
-              </h5>
+              </h4>
               <p className="text-body-secondary mb-4">
                 Git / GitHub, Docker, CI/CD Automation, Postman,
                 Figma, Firebase, VS Code
               </p>
 
-              <h5 className="fw-semibold text-primary mb-2">
+              <h4 className="h5 fw-semibold text-primary mb-2">
                 Front End & UI Design
-              </h5>
+              </h4>
               <p className="text-body-secondary mb-4">
                 AODA, HTML, Bootstrap, Tailwind CSS, Adobe CC Suite, Responsive Design,
                 Accessibility Optimization, Performance Tuning

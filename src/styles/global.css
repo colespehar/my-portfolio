@@ -15,6 +15,9 @@ body {
 }
 
 :root {
+  /* Dark-only site: keep browser-rendered UI (scrollbars, form controls,
+     date pickers) dark to match. */
+  color-scheme: dark;
   --custom-accent: #a100f2;
   --bs-primary: var(--custom-accent);
   --bs-primary-rgb: 161, 0, 242;
@@ -32,15 +35,22 @@ body {
   color: var(--custom-accent) !important;
 }
 
-.theme-toggle-purple {
-  border-color: var(--custom-accent) !important;
-  color: var(--custom-accent) !important;
+/* Off-screen until focused, so keyboard users can jump past the nav. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 2000;
+  padding: 0.6rem 1rem;
+  background: var(--custom-accent);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 0 0 0.4rem 0;
+  text-decoration: none;
 }
 
-.theme-toggle-purple:hover,
-.theme-toggle-purple:focus {
-  background-color: var(--custom-accent) !important;
-  color: #fff !important;
+.skip-link:focus {
+  left: 0;
 }
 
 /* ==============================
@@ -53,10 +63,17 @@ body {
       rgba(0, 0, 0, 0.6) 40%,
       rgba(0, 0, 0, 0.75) 100%
     ),
-    url("../assets/purplebgupdated.jpg?v=2");
+    /* Served from public/ (not hashed) so index.html can preload it by a
+       stable name — it is the LCP element and a CSS-discovered background
+       otherwise waits for the full stylesheet to parse before it fetches. */
+    url("/purplebgupdated.webp");
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  /* `fixed` forces a full repaint of the hero on every scroll frame. Limit it
+     to pointer devices with room for the effect: iOS Safari ignores `fixed`
+     outright, so touch devices never saw the parallax anyway — they only paid
+     the jank. Reduced-motion users opt out below. */
+  background-attachment: scroll;
   min-height: 72vh;
   display: flex;
   align-items: center;
@@ -65,6 +82,13 @@ body {
   color: #fff;
   padding: 4rem 1rem;
   overflow: hidden;
+}
+
+/* Parallax only where it is both supported and cheap. */
+@media (hover: hover) and (pointer: fine) and (min-width: 992px) and (prefers-reduced-motion: no-preference) {
+  #hero {
+    background-attachment: fixed;
+  }
 }
 
 #hero h1,
@@ -384,9 +408,19 @@ body {
   outline: none;                                       /* safety */
 }
 
+/* The previous ring was rgba(255,255,255,0.06) with outline:none on top of it,
+   which is invisible against the dark contact box — keyboard users had no way
+   to tell which field they were in. :focus-visible keeps it off for mouse
+   clicks while meeting the 3:1 the indicator needs. */
 #contact .form-control:focus {
   border-color: rgba(255, 255, 255, 0.28) !important;
-  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06) !important; /* very soft */
+}
+
+#contact .form-control:focus-visible {
+  border-color: var(--custom-accent) !important;
+  box-shadow: 0 0 0 3px rgba(161, 0, 242, 0.55) !important;
+  outline: 2px solid transparent; /* visible in forced-colors mode */
+  outline-offset: 2px;
 }
 
 /* Hover state — slightly more intense glow */
@@ -490,10 +524,6 @@ body {
 
 .opacity-100 {
   opacity: 1;
-}
-
-.media-layer {
-  transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out;
 }
 
 /* ==============================
@@ -921,12 +951,6 @@ body {
 
   .navbar-collapse .nav-link:hover {
     color: var(--custom-accent) !important;
-  }
-
-  .navbar-collapse .theme-toggle-purple {
-    width: 90%;
-    margin: 0.5rem auto 0;
-    display: block;
   }
 }
 

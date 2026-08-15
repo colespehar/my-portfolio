@@ -1,15 +1,30 @@
 // src/components/ProjectModal.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, Button, Badge } from "react-bootstrap";
+import { isRealLink } from "../utils/links.js";
 
 export default function ProjectModal({ project, onHide }) {
   const videoRef = useRef(null);
   const [mediaLoaded, setMediaLoaded] = useState(false);
 
-  const media = project?.media;
+  // `project` goes null the moment the modal starts closing, but Bootstrap
+  // still runs a 0.3s fade-out — rendering straight off `project` blanks the
+  // dialog for ~150ms of that. Keep the last one until the exit finishes.
+  const [shown, setShown] = useState(project);
+  useEffect(() => {
+    if (project) setShown(project);
+  }, [project]);
+
+  // Otherwise this stays true from the first project opened, so the fade-in
+  // never runs again and a later failed load shows at full opacity.
+  useEffect(() => {
+    setMediaLoaded(false);
+  }, [shown?.id]);
+
+  const media = shown?.media;
   const mediaType = media?.type;
   const modalSrc = media?.modal || media?.preview; // fallback to preview
-  const poster = media?.poster || project?.img;
+  const poster = media?.poster || shown?.img;
 
   const isVideo =
     mediaType === "video" &&
@@ -53,11 +68,12 @@ export default function ProjectModal({ project, onHide }) {
       size="lg"
       contentClassName="project-modal-content border-0 rounded-4 overflow-hidden shadow-lg"
       backdropClassName="project-modal-backdrop"
+      onExited={() => setShown(null)}
     >
-      {project && (
+      {shown && (
         <>
           <Modal.Header closeButton className="border-0 px-4 pt-3">
-            <Modal.Title className="fw-bold">{project.title}</Modal.Title>
+            <Modal.Title className="fw-bold">{shown.title}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body className="px-4 pb-4 pt-2">
@@ -81,14 +97,14 @@ export default function ProjectModal({ project, onHide }) {
               ) : isGif ? (
                 <img
                   src={modalSrc}
-                  alt={`${project.title} demo`}
+                  alt={`${shown.title} demo`}
                   className="w-100 h-100 object-fit-cover"
                   onLoad={() => setMediaLoaded(true)}
                 />
               ) : (
                 <img
                   src={poster}
-                  alt={project.title}
+                  alt={shown.title}
                   className="w-100 h-100 object-fit-cover"
                   onLoad={() => setMediaLoaded(true)}
                 />
@@ -96,9 +112,9 @@ export default function ProjectModal({ project, onHide }) {
             </div>
 
             {/* Display all tags */}
-            {project.tags?.length > 0 && (
+            {shown.tags?.length > 0 && (
               <div className="d-flex flex-wrap gap-2 mb-3">
-                {project.tags.map((tg) => (
+                {shown.tags.map((tg) => (
                   <Badge key={tg} bg="secondary" pill>
                     {tg}
                   </Badge>
@@ -107,24 +123,24 @@ export default function ProjectModal({ project, onHide }) {
             )}
 
             {/* Project blurb */}
-            <p className="mb-3">{project.blurb}</p>
+            <p className="mb-3">{shown.blurb}</p>
 
             {/* Action buttons */}
             <div className="d-flex gap-2 flex-wrap">
-              {project.links?.demo && (
+              {isRealLink(shown.links?.demo) && (
                 <Button
                   variant="primary"
-                  href={project.links.demo}
+                  href={shown.links.demo}
                   target="_blank"
                   rel="noreferrer"
                 >
                   Live Demo
                 </Button>
               )}
-              {project.links?.github && (
+              {isRealLink(shown.links?.github) && (
                 <Button
                   variant="outline-secondary"
-                  href={project.links.github}
+                  href={shown.links.github}
                   target="_blank"
                   rel="noreferrer"
                 >
