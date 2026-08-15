@@ -85,7 +85,10 @@ export default function Hero() {
       <Container>
         <Row className="align-items-center">
           {/* Left Column */}
-          <Col md={7} className="mb-4 mb-md-0" data-aos="fade-up">
+          {/* No data-aos here: aos.css hides [data-aos] until AOS.init runs in
+              JS, which would leave the headline — the main above-the-fold
+              content — invisible until the bundle loads. */}
+          <Col md={7} className="mb-4 mb-md-0">
             <h1 className="display-5 fw-bold typing">
               {showBefore}
               <span className="name-glow">{showName}</span>
@@ -127,8 +130,8 @@ export default function Hero() {
             </div>
           </Col>
 
-          {/* Right Column — Animated Hobbies */}
-          <Col md={5} data-aos="zoom-in">
+          {/* Right Column — Animated Hobbies (also above the fold, so no AOS) */}
+          <Col md={5}>
             <div className="rounded-4 hero-stats-box text-center">
               <h2 className="h6 mb-4 text-light fw-semibold">Outside of Code</h2>
 

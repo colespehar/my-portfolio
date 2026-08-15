@@ -87,7 +87,6 @@ export default function SiteNavbar() {
       expand="lg"
       fixed="top"
       className="bg-body shadow-sm"
-      data-aos="fade-down"
       ref={navRef}
     >
       <Container>
