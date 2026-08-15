@@ -15,6 +15,23 @@ function HobbyPlaceholder() {
   ));
 }
 
+// The Lottie player is ~83KB gzip. Rendering it on mount fires its dynamic
+// import immediately, so it competes with the LCP hero image for bandwidth.
+// Wait for the browser to go idle before mounting — the decorative animations
+// can arrive a beat late, the shift-free placeholder holds their place.
+function useIdle() {
+  const [idle, setIdle] = useState(false);
+  useEffect(() => {
+    if (typeof window.requestIdleCallback !== "function") {
+      const t = setTimeout(() => setIdle(true), 200); // Safari < 17 fallback
+      return () => clearTimeout(t);
+    }
+    const id = window.requestIdleCallback(() => setIdle(true), { timeout: 2000 });
+    return () => window.cancelIdleCallback(id);
+  }, []);
+  return idle;
+}
+
 /* typing hook unchanged */
 function useTypeCount(totalChars, speed = 80, startDelay = 0) {
   const [count, setCount] = useState(0);
@@ -37,6 +54,7 @@ function useTypeCount(totalChars, speed = 80, startDelay = 0) {
 }
 
 export default function Hero() {
+  const showAnimations = useIdle();
   const before = "Hi, I'm ";
   const name = "Cole";
   const after =
@@ -115,9 +133,13 @@ export default function Hero() {
               <h2 className="h6 mb-4 text-light fw-semibold">Outside of Code</h2>
 
               <div className="d-flex justify-content-around align-items-center flex-wrap gap-4">
-                <Suspense fallback={<HobbyPlaceholder />}>
-                  <HobbyAnimations />
-                </Suspense>
+                {showAnimations ? (
+                  <Suspense fallback={<HobbyPlaceholder />}>
+                    <HobbyAnimations />
+                  </Suspense>
+                ) : (
+                  <HobbyPlaceholder />
+                )}
               </div>
             </div>
           </Col>

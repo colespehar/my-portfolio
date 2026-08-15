@@ -6,6 +6,9 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/webp" href="./favicon.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- LCP element is the hero background. Preloading it lets the fetch start
+         with the HTML instead of waiting for the stylesheet to parse. -->
+    <link rel="preload" as="image" href="/purplebgupdated.webp" fetchpriority="high" />
     <!-- Tells the browser to render scrollbars, form controls and the like
          in dark, instead of light chrome around a dark page. -->
     <meta name="color-scheme" content="dark" />

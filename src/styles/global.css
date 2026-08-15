@@ -63,7 +63,10 @@ body {
       rgba(0, 0, 0, 0.6) 40%,
       rgba(0, 0, 0, 0.75) 100%
     ),
-    url("../assets/purplebgupdated.webp");
+    /* Served from public/ (not hashed) so index.html can preload it by a
+       stable name — it is the LCP element and a CSS-discovered background
+       otherwise waits for the full stylesheet to parse before it fetches. */
+    url("/purplebgupdated.webp");
   background-size: cover;
   background-position: center;
   /* `fixed` forces a full repaint of the hero on every scroll frame. Limit it
